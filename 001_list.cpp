@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+
+//------------------------------------------------------------------------------------------------- Medium
 /*
  * Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical
  * lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with
@@ -31,6 +33,41 @@ void main_lc0011(void)
     vector<int> height {1,8,6,2,5,4,8,3,7};
     auto ans = solu.maxArea(height);
     cout << ans << endl;
+}
+
+//------------------------------------------------------------------------------------------------- Easy
+
+/*
+ * Given an array nums and a value val, remove all instances of that value in-place and return the new length.
+ * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+ * The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+ */
+
+struct lc0027 { // E
+    int removeElement(vector<int>& nums, int val) {
+    int n = nums.size();
+        if (!n) return n;
+
+    int ptr_slow = 0, ptr_fast = 0;
+        while (ptr_fast < nums.size()) {
+            if (nums[ptr_fast] == val)
+                n--;
+            else
+                nums[ptr_slow++] = nums[ptr_fast];
+            ptr_fast++;
+        }
+    return n;
+    }
+};
+
+void main_lc0027(void)
+{
+    lc0027 solu;
+    vector<int> nums {0,1,2,2,3,0,4,2};
+    int val = 2;
+    auto ans = solu.removeElement(nums, val);
+    cout << ans << endl;
+    for(auto num:nums) cout << num << ' ';
 }
 
 /*
