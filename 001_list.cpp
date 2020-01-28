@@ -40,10 +40,11 @@ void main_lc0011(void)
 #include <vector>
 struct lc0026 { // E
     int removeDuplicates(vector<int>& nums) {
-        int n = nums.size();
-        int ptr_slow = 1, ptr_fast = 1;
-        int pre_val = nums.front();
+    int n = nums.size();
+        if (!n) return n;
 
+    int ptr_slow = 1, ptr_fast = 1;
+    int pre_val = nums.front();
         while (ptr_fast < nums.size()) {
             if (pre_val == nums[ptr_fast])
                 n--;
@@ -51,7 +52,7 @@ struct lc0026 { // E
                 nums[ptr_slow++] = nums[ptr_fast];
             pre_val = nums[ptr_fast++];
         }
-        return n;
+    return n;
     }
 };
 
