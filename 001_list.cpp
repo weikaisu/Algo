@@ -7,7 +7,7 @@ using namespace std;
  * x-axis forms a container, such that the container contains the most water.
  */
 #include <vector>
-struct lc011 { // M
+struct lc0011 { // M
     int maxArea(vector<int>& height) {
         int max_val = 0;
 
@@ -25,12 +25,43 @@ struct lc011 { // M
     }
 };
 
-void main_lc011(void)
+void main_lc0011(void)
 {
-    lc011 solu;
+    lc0011 solu;
     vector<int> height {1,8,6,2,5,4,8,3,7};
     auto ans = solu.maxArea(height);
     cout << ans << endl;
+}
+
+/*
+ * Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+ * Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+ */
+#include <vector>
+struct lc0026 { // E
+    int removeDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        int ptr_slow = 1, ptr_fast = 1;
+        int pre_val = nums.front();
+
+        while (ptr_fast < nums.size()) {
+            if (pre_val == nums[ptr_fast])
+                n--;
+            else
+                nums[ptr_slow++] = nums[ptr_fast];
+            pre_val = nums[ptr_fast++];
+        }
+        return n;
+    }
+};
+
+void main_lc0026(void)
+{
+    lc0026 solu;
+    vector<int> nums {0,0,1,1,1,2,2,3,3,4};
+    auto ans = solu.removeDuplicates(nums);
+    cout << ans << endl;
+    for(auto num:nums) cout << num << ' ';
 }
 
 /*
@@ -39,7 +70,7 @@ You may assume that each input would have exactly one solution, and you may not 
  */
 #include <vector>
 #include <unordered_map>
-struct lc001 { // E
+struct lc0001 { // E
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_map<int, int> table;
         for (auto i=0; i<nums.size(); i++)
@@ -61,14 +92,14 @@ struct lc001 { // E
     };
 };
 
-void main_lc001(void)
+void main_lc0001(void)
 {
     /*
     Given nums = [2, 7, 11, 15], target = 9,
     Because nums[0] + nums[1] = 2 + 7 = 9,
     return [0, 1].
     */
-    lc001 solu;
+    lc0001 solu;
     vector<int> nums {2, 7, 11, 15};
     auto ans = solu.twoSum_slow(nums, 22);
 
