@@ -3,6 +3,36 @@
 using namespace std;
 
 //------------------------------------------------------------------------------------------------- Easy
+
+
+struct lc0069 { // E
+    int mySqrt(int x) {
+        int size = x;
+        int first = 1;
+
+        while(size) {
+            int half = size/2;
+            int mid = first + half;
+
+            // use upper_bound
+            if ( x < (long) mid*mid) { // cast to long to avoid integer overflow
+                size = half;
+            } else {
+                first = ++mid;
+                size -= half+1;
+            }
+        }
+        return first-1;
+    }
+};
+
+void main_lc0069(void)
+{
+    lc0069 solu;
+    auto ans = solu.mySqrt(10);
+    cout << ans << endl;
+}
+
 /*
  * Given a sorted array and a target value, return the index if the target is found. If not, return the index where it
  * would be if it were inserted in order.
@@ -10,7 +40,6 @@ using namespace std;
  */
 #include <algorithm>
 struct lc0035 { // E
-public:
     int searchInsert(vector<int>& nums, int target) {
         int size = nums.size();
         if(!size) return 0;
@@ -19,7 +48,7 @@ public:
         while(size) {
             auto half = size/2;
             auto mid = first + half;
-#if 0      // lower_bound 1st element >= target
+#if 1      // lower_bound 1st element >= target
             if (*mid < target) {
                 first = ++mid;
                 size -= half+1;
