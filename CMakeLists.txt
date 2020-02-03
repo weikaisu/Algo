@@ -3,4 +3,4 @@ project(Algo)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Algo main.cpp 001_list.cpp 022_bst.cpp)
+add_executable(Algo main.cpp 001_list.cpp 022_bst.cpp 010_sort.cpp)
