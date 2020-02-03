@@ -40,6 +40,19 @@ struct _my_sort {
             *pos=num;
         }
     }
+
+    void bubble_sort(vector<int> &nums) {
+        bool swapped = true;
+        while(swapped) {
+            swapped = false;
+            for(auto iter=nums.begin(); iter!=nums.end()-1; iter++) {
+                if (*iter > *(iter+1)) {
+                    iter_swap(iter, iter+1);
+                    swapped = true;
+                }
+            }
+        }
+    }
 };
 
 void main_my_sort(void)
@@ -47,6 +60,7 @@ void main_my_sort(void)
     _my_sort my_sort;
     vector<int> nums(my_sort._nums);
     //my_sort.select_sort(nums);
-    my_sort.insertion_sort(nums);
+    //my_sort.insertion_sort(nums);
+    my_sort.bubble_sort(nums);
     my_sort.show_nums(nums);
 }
