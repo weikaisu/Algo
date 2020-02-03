@@ -26,6 +26,10 @@ struct _my_sort {
         }
     }
 
+    /*
+     * 其觀念是構建有序序列，然後對於未排序的數據，會在已排序序列中從後向前掃描，找到相對應的位置並插入。
+     * https://dotblogs.com.tw/ace_dream/2016/01/03/insertionsort
+     */
     void insertion_sort(vector<int> &nums) {
         auto begin = nums.begin(), end = nums.begin();
         bool first = true;
