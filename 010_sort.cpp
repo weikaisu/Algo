@@ -27,7 +27,14 @@ struct _my_sort {
     }
 
     void insertion_sort(vector<int> &nums) {
-
+        auto begin = nums.begin(), end = nums.begin();
+        bool first = true;
+        for(auto num:nums ) {
+            if(first) { first=false; continue; }
+            auto pos = upper_bound(begin, end++, num);
+            move(pos,end,pos+1);
+            *pos=num;
+        }
     }
 };
 
@@ -35,6 +42,7 @@ void main_my_sort(void)
 {
     _my_sort my_sort;
     vector<int> nums(my_sort._nums);
-    my_sort.select_sort(nums);
+    //my_sort.select_sort(nums);
+    my_sort.insertion_sort(nums);
     my_sort.show_nums(nums);
 }
