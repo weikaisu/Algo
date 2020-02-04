@@ -45,9 +45,9 @@ struct _my_sort {
         bool swapped = true;
         while(swapped) {
             swapped = false;
-            for(auto iter=nums.begin(); iter!=nums.end()-1; iter++) {
-                if (*iter > *(iter+1)) {
-                    iter_swap(iter, iter+1);
+            for(auto it=nums.begin(); it!=nums.end()-1; it++) {
+                if (*it > *(it+1)) {
+                    iter_swap(it, it+1);
                     swapped = true;
                 }
             }

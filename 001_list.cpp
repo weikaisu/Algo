@@ -9,10 +9,16 @@ using namespace std;
  * x-axis forms a container, such that the container contains the most water.
  */
 #include <vector>
+#include <algorithm>
 struct lc0011 { // M
     int maxArea(vector<int>& height) {
         int max_val = 0;
-
+        auto it_front = height.begin(), it_end = height.end()-1;
+        while(it_front < it_end){
+            max_val = max(max_val, (int)(it_end-it_front) * min(*it_front, *it_end));
+            if (*it_front<*it_end) it_front++;
+            else it_end--;
+        }
         return max_val;
     }
 
