@@ -6,6 +6,38 @@ using namespace std;
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ */
+#include <deque>
+#include <unordered_map>
+struct lc0020 {
+    bool isValid(string s) {
+        if(s.size()%2) return false;
+    deque<char> stack;
+    unordered_map<char,char> tbl {{'(',')'}, {'[',']'}, {'{','}'}};
+        for(auto chr:s) {
+            if(chr=='(' || chr=='[' || chr=='{')
+                stack.push_front(chr);
+            else {
+                if (chr != tbl[stack.front()]) return false;
+                stack.pop_front();
+            }
+        }
+        if(!stack.empty()) return false;
+    return true;
+    }
+};
+
+void main_lc0020(void)
+{
+    lc0020 solu;
+    //string s {"()[]{}"};
+    string s {"(("};
+    auto ans = solu.isValid(s);
+    cout << ans << endl;
+}
+
+/*
  * Write a function to find the longest common prefix string amongst an array of strings.
  * If there is no common prefix, return an empty string "".
  */
