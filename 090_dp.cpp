@@ -9,7 +9,6 @@ using namespace std;
  */
 #include <vector>
 struct lc0053 {
-public:
     int maxSubArray(vector<int>& nums) {
 
         if(!nums.size()) return 0;
