@@ -1,6 +1,28 @@
 #include <iostream>
 using namespace std;
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+ListNode* addListNode(ListNode* head, int val)
+{
+    ListNode* root;
+    while(head->next) head=head->next;
+    head->next = new ListNode(val);
+    return root;
+}
+
+void printListNode(ListNode* head)
+{
+    while(head) {
+        cout << head->val << " ";
+        head=head->next;
+    }
+    cout << endl;
+}
 
 //------------------------------------------------------------------------------------------------- Medium
 /*
@@ -106,6 +128,41 @@ void main_lc0026(void)
     auto ans = solu.removeDuplicates(nums);
     cout << ans << endl;
     for(auto num:nums) cout << num << ' ';
+}
+
+/*
+ * Merge two sorted linked lists and return it as a new list.
+ * The new list should be made by splicing together the nodes of the first two lists.
+ */
+struct lc0021 {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(!l1||!l2) return l1 ? l1:l2;
+        if(l1->val < l2->val) {
+            l1->next = mergeTwoLists(l1->next, l2);
+            return l1;
+        } else {
+            l2->next = mergeTwoLists(l1, l2->next);
+            return l2;
+        }
+    }
+};
+
+void main_lc0021(void)
+{
+    lc0021 solu;
+    ListNode* lst1 = new ListNode(1);
+    addListNode(lst1, 2);
+    addListNode(lst1, 4);
+    printListNode(lst1);
+
+    ListNode* lst2 = new ListNode(1);
+    addListNode(lst2, 3);
+    addListNode(lst2, 4);
+    printListNode(lst2);
+
+    auto ans = solu.mergeTwoLists(lst1, lst2);
+    printListNode(ans);
 }
 
 /*
