@@ -72,9 +72,23 @@ void main_lc0011(void)
 #include <unordered_set>
 struct lc0083 { // E
     ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *node = head;
+        while(node!=nullptr && node->next!=nullptr){
+            if(node->val == node->next->val) {
+                ListNode *dup = node->next;
+                node->next = node->next->next;
+                delete dup;
+            }
+            else
+                node = node->next;
+        }
+        return head;
+    }
+
+    ListNode* deleteDuplicates_slow(ListNode* head) {
         if(head==nullptr) return head;
-        unordered_set<int> tbl;
-        ListNode *nodeCur = head, *nodePre = nullptr;
+    unordered_set<int> tbl;
+    ListNode *nodeCur = head, *nodePre = nullptr;
         while(nodeCur!=nullptr){
             if(!tbl.count(nodeCur->val)) {
                 tbl.insert(nodeCur->val);
@@ -95,9 +109,10 @@ void main_lc0083(void)
     lc0083 solu;
     ListNode* lst = new ListNode(1);
     addListNode(lst, 1);
-    addListNode(lst, 2);
-    addListNode(lst, 3);
-    addListNode(lst, 3);
+    addListNode(lst, 1);
+    //addListNode(lst, 2);
+    //addListNode(lst, 3);
+    //addListNode(lst, 3);
     printListNode(lst);
     auto ans = solu.deleteDuplicates(lst);
     printListNode(ans);
