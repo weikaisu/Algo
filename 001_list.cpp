@@ -25,39 +25,6 @@ void printListNode(ListNode* head)
 }
 
 //------------------------------------------------------------------------------------------------- Medium
-#include <unordered_set>
-struct lc0083 {
-    ListNode* deleteDuplicates(ListNode* head) {
-        if(head==nullptr) return head;
-    unordered_set<int> tbl;
-        ListNode *nodeCur = head, *nodePre = nullptr;
-        while(nodeCur!=nullptr){
-            if(!tbl.count(nodeCur->val)) {
-                tbl.insert(nodeCur->val);
-                nodePre = nodeCur;
-                nodeCur = nodeCur->next;
-            }else{
-                nodePre->next = nodeCur->next;
-                delete nodeCur;
-                nodeCur = nodePre->next;
-            }
-        }
-    return head;
-    }
-};
-
-void main_lc0083(void)
-{
-    lc0083 solu;
-    ListNode* lst = new ListNode(1);
-    addListNode(lst, 1);
-    addListNode(lst, 2);
-    addListNode(lst, 3);
-    addListNode(lst, 3);
-    printListNode(lst);
-    auto ans = solu.deleteDuplicates(lst);
-    printListNode(ans);
-}
 
 /*
  * Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical
@@ -98,6 +65,43 @@ void main_lc0011(void)
 }
 
 //------------------------------------------------------------------------------------------------- Easy
+
+/*
+ * Given a sorted linked list, delete all duplicates such that each element appear only once.
+ */
+#include <unordered_set>
+struct lc0083 { // E
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==nullptr) return head;
+        unordered_set<int> tbl;
+        ListNode *nodeCur = head, *nodePre = nullptr;
+        while(nodeCur!=nullptr){
+            if(!tbl.count(nodeCur->val)) {
+                tbl.insert(nodeCur->val);
+                nodePre = nodeCur;
+                nodeCur = nodeCur->next;
+            }else{
+                nodePre->next = nodeCur->next;
+                delete nodeCur;
+                nodeCur = nodePre->next;
+            }
+        }
+        return head;
+    }
+};
+
+void main_lc0083(void)
+{
+    lc0083 solu;
+    ListNode* lst = new ListNode(1);
+    addListNode(lst, 1);
+    addListNode(lst, 2);
+    addListNode(lst, 3);
+    addListNode(lst, 3);
+    printListNode(lst);
+    auto ans = solu.deleteDuplicates(lst);
+    printListNode(ans);
+}
 
 /*
  * Given an array nums and a value val, remove all instances of that value in-place and return the new length.
