@@ -4,6 +4,35 @@ using namespace std;
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * You are climbing a stair case. It takes n steps to reach to the top.
+ * Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+ */
+struct lc0070 {
+    int climbStairs(int n) {
+        if(n<=0) return 0;
+        if(n==1) return 1;
+        if(n==2) return 2;
+
+        int nM0=0, nM1=2, nM2=1;
+        for(int i=3; i<=n; i++) {
+            nM0 = nM1 + nM2 ;
+            nM2=nM1; nM1=nM0;
+        }
+        return nM0;
+
+        // recursive way
+        return climbStairs(n-1)+climbStairs(n-2);
+    }
+};
+
+void main_lc0070(void) {
+    lc0070 solu;
+    int n = 4;
+    auto ans = solu.climbStairs(n);
+    cout << ans << endl;
+}
+
+/*
  * Given an integer array nums, find the contiguous subarray (containing at least one number)
  * which has the largest sum and return its sum.
  */
