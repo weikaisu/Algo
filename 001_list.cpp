@@ -35,7 +35,7 @@ void printListNode(ListNode* head)
 struct lc0011 { // M
     int maxArea(vector<int>& height) {
         int max_val = 0;
-        auto it_front = height.begin(), it_end = height.end()-1;
+        auto it_front = height.begin(), it_end = prev(height.end());
         while(it_front < it_end){
             max_val = max(max_val, (int)(it_end-it_front) * min(*it_front, *it_end));
             if (*it_front<*it_end) it_front++;

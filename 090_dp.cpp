@@ -15,7 +15,7 @@ struct lc0053 {
         if(nums.size()==1) return *nums.begin();
 
     int sCurr, sPre1=nums[0], max_val=nums[0];
-        for(auto it=nums.begin()+1; it!=nums.end(); it++) {
+        for(auto it=next(nums.begin()); it!=nums.end(); it++) {
             sCurr   = max(*it+sPre1, *it);
             max_val = max(max_val, sCurr);
             sPre1 = sCurr;
@@ -27,8 +27,8 @@ struct lc0053 {
 void main_lc0053(void)
 {
     lc0053 solu;
-    //vector<int> nums {-2,1,-3,4,-1,2,1,-5,4};
-    vector<int> nums {-1, -2};
+    vector<int> nums {-2,1,-3,4,-1,2,1,-5,4};
+    //vector<int> nums {-1, -2};
     auto ans = solu.maxSubArray(nums);
     cout << ans << endl;
 }

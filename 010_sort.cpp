@@ -18,11 +18,11 @@ struct _my_sort {
      * https://dotblogs.com.tw/ace_dream/2016/01/04/selectionsort
      */
     void select_sort(vector<int> &nums) {
-        auto begin=nums.begin(), end=nums.end();
+        auto beg=nums.begin(), end=nums.end();
         for(auto &num:nums) {
-            auto sub_min=min_element(begin++, end);
+            auto sub_min=min_element(beg++, end);
             swap(num, *sub_min);
-            if(begin==end) break;
+            if(beg==end) break;
         }
     }
 
@@ -31,11 +31,11 @@ struct _my_sort {
      * https://dotblogs.com.tw/ace_dream/2016/01/03/insertionsort
      */
     void insertion_sort(vector<int> &nums) {
-        auto begin = nums.begin(), end = nums.begin();
+        auto beg = nums.begin(), end = nums.begin();
         bool first = true;
         for(auto num:nums ) {
             if(first) { first=false; continue; }
-            auto pos = upper_bound(begin, end++, num);
+            auto pos = upper_bound(beg, end++, num);
             move(pos,end,pos+1);
             *pos=num;
         }
@@ -45,7 +45,7 @@ struct _my_sort {
         bool swapped = true;
         while(swapped) {
             swapped = false;
-            for(auto it=nums.begin(); it!=nums.end()-1; it++) {
+            for(auto it=nums.begin(); it!=prev(nums.end()); it++) {
                 if (*it > *(it+1)) {
                     iter_swap(it, it+1);
                     swapped = true;
