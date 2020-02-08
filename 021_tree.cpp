@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <deque>
 using namespace std;
 
 struct TreeNode {
@@ -16,7 +17,56 @@ void dfsInOrder(TreeNode *root)
     if(root->right) dfsInOrder(root->right);
 }
 
+void traUpDwon(TreeNode *root)
+{
+    if(!root) return;
+
+    deque<TreeNode*> q;
+    int q_size = 0;
+
+    q.push_front(root);
+    while(q_size=q.size()) {
+        while(q_size--) {
+            TreeNode *node = q.back(); q.pop_back();
+            cout << node->val << ' ';
+            if(node->left) q.push_front(node->left);
+            if(node->right) q.push_front(node->right);
+        }
+        cout << endl;
+    }
+}
+
 //------------------------------------------------------------------------------------------------- Easy
+
+struct lc0101 {
+    bool isMirror(TreeNode* left, TreeNode* right) {
+        if((!left && right) || (left && !right))
+            return false;
+        if(!left && !right)
+            return true;
+        return isMirror(left->left, right->right) && isMirror(left->right, right->left) && left->val == right->val;
+    }
+
+    bool isSymmetric(TreeNode* root) {
+        if(!root) return true;
+        return isMirror(root->left, root->right);
+    }
+};
+
+void main_lc0101(void)
+{
+    lc0101 solu;
+    TreeNode *tree = new TreeNode(1);
+    tree->left = new TreeNode(2);
+    tree->right = new TreeNode(2);
+    tree->left->left = new TreeNode(3);
+    tree->left->right = new TreeNode(4);
+    tree->right->left = new TreeNode(4);
+    //tree->right->right = new TreeNode(3);
+    traUpDwon(tree);
+    auto ans = solu.isSymmetric(tree);
+    cout << ans << endl;
+}
 
 /*
  * Given two binary trees, write a function to check if they are the same or not.
