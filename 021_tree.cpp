@@ -40,10 +40,8 @@ void traUpDwon(TreeNode *root)
 
 struct lc0101 {
     bool _isSymmetric(TreeNode* left, TreeNode* right) {
-        if((!left && right) || (left && !right))
-            return false;
-        if(!left && !right)
-            return true;
+        if(!left && !right) return true;
+        if(!left || !right) return false;
         return _isSymmetric(left->left, right->right) && _isSymmetric(left->right, right->left) && left->val == right->val;
     }
 
