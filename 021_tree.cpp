@@ -39,17 +39,17 @@ void traUpDwon(TreeNode *root)
 //------------------------------------------------------------------------------------------------- Easy
 
 struct lc0101 {
-    bool isMirror(TreeNode* left, TreeNode* right) {
+    bool _isSymmetric(TreeNode* left, TreeNode* right) {
         if((!left && right) || (left && !right))
             return false;
         if(!left && !right)
             return true;
-        return isMirror(left->left, right->right) && isMirror(left->right, right->left) && left->val == right->val;
+        return _isSymmetric(left->left, right->right) && _isSymmetric(left->right, right->left) && left->val == right->val;
     }
 
     bool isSymmetric(TreeNode* root) {
         if(!root) return true;
-        return isMirror(root->left, root->right);
+        return _isSymmetric(root->left, root->right);
     }
 };
 
