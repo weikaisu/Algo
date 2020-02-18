@@ -38,6 +38,33 @@ void traUpDwon(TreeNode *root)
 
 //------------------------------------------------------------------------------------------------- Easy
 
+/*
+ * Given a binary tree, find its maximum depth.
+ * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+ */
+struct lc0104 { // E
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return 1+max(maxDepth(root->left), maxDepth(root->right));
+    }
+};
+
+void main_lc0104(void) {
+    lc0104 solu;
+    TreeNode* tree = new TreeNode(3);
+    tree->left = new TreeNode(9);
+    tree->right = new TreeNode(20);
+    tree->right->left = new TreeNode(15);
+    tree->right->right = new TreeNode(7);
+    traUpDwon(tree);
+    auto ans = solu.maxDepth(tree);
+    cout << ans << endl;
+}
+
+/*
+ * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+ */
+
 struct lc0101 {
     bool _isSymmetric(TreeNode* left, TreeNode* right) {
         if(!left && !right) return true;
