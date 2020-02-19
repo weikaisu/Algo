@@ -17,7 +17,7 @@ void dfsInOrder(TreeNode *root)
     if(root->right) dfsInOrder(root->right);
 }
 
-void traUpDwon(TreeNode *root)
+void traUpDown(TreeNode *root)
 {
     if(!root) return;
 
@@ -25,7 +25,7 @@ void traUpDwon(TreeNode *root)
     int q_size = 0;
 
     q.push_front(root);
-    while(q_size=q.size()) {
+    while((q_size=q.size())) {
         while(q_size--) {
             TreeNode *node = q.back(); q.pop_back();
             cout << node->val << ' ';
@@ -36,7 +36,86 @@ void traUpDwon(TreeNode *root)
     }
 }
 
+void traDownUp(TreeNode * root)
+{
+    if(!root) return;
+
+    deque<TreeNode*> s;
+    deque<TreeNode*> q;
+    int q_size = 0;
+
+    q.push_front(root);
+    while((q_size=q.size())) {
+        while(q_size--) {
+            TreeNode* node = q.back(); q.pop_back();
+            if(node->right) q.push_front(node->right);
+            if(node->left) q.push_front(node->left);
+            s.push_front(node);
+        }
+        s.push_front(nullptr);
+    }
+
+    while(s.size()) {
+        TreeNode* node = s.front(); s.pop_front();
+        if(!node) cout << endl;
+        else cout << node->val << ' ';
+    }
+}
+
 //------------------------------------------------------------------------------------------------- Easy
+
+/*
+ * Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right,
+ * level by level from leaf to root).
+ */
+struct lc0107 {
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> res;
+        if(!root) return res;
+
+        deque<TreeNode*> s;
+        deque<TreeNode*> q;
+        int q_size = 0;
+
+        q.push_front(root);
+        while((q_size=q.size())) {
+            while(q_size--) {
+                TreeNode* node = q.back(); q.pop_back();
+                if(node->right) q.push_front(node->right);
+                if(node->left) q.push_front(node->left);
+                s.push_front(node);
+            }
+            s.push_front(nullptr);
+        }
+
+        s.pop_front();
+        vector<int> level;
+        while(s.size()) {
+            TreeNode* node = s.front(); s.pop_front();
+            if(!node) {
+                res.push_back(level);
+                level.clear();
+            }
+            else
+                level.push_back(node->val);
+        }
+        res.push_back(level);
+
+        return res;
+    }
+};
+
+void main_lc0107(void)
+{
+    lc0107 solu;
+    TreeNode *tree = new TreeNode(3);
+    tree->left = new TreeNode(9);
+    tree->right = new TreeNode(20);
+    tree->right->left = new TreeNode(15);
+    tree->right->right = new TreeNode(7);
+    //traDownUp(tree);
+    auto ans = solu.levelOrderBottom(tree);
+}
 
 /*
  * Given a binary tree, find its maximum depth.
@@ -56,7 +135,7 @@ void main_lc0104(void) {
     tree->right = new TreeNode(20);
     tree->right->left = new TreeNode(15);
     tree->right->right = new TreeNode(7);
-    traUpDwon(tree);
+    traUpDown(tree);
     auto ans = solu.maxDepth(tree);
     cout << ans << endl;
 }
@@ -88,7 +167,7 @@ void main_lc0101(void)
     tree->left->right = new TreeNode(4);
     tree->right->left = new TreeNode(4);
     //tree->right->right = new TreeNode(3);
-    traUpDwon(tree);
+    traUpDown(tree);
     auto ans = solu.isSymmetric(tree);
     cout << ans << endl;
 }
