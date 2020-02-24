@@ -65,6 +65,33 @@ void traDownUp(TreeNode * root)
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Convert Sorted Array to Binary Search Tree
+ */
+struct lc0108 {
+    TreeNode* _sortedArrayToBST(vector<int>& nums, int l, int r) {
+        if(l>r) return nullptr;
+
+        int m = l + (r-l)/2;
+        TreeNode* node = new TreeNode(nums[m]);
+        node->left = _sortedArrayToBST(nums, l, m-1);
+        node->right = _sortedArrayToBST(nums, m+1, r);
+
+        return node;
+    }
+
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return _sortedArrayToBST(nums, 0, nums.size()-1);
+    }
+};
+
+void main_lc0108(void)
+{
+    lc0108 solu;
+    vector<int> nums {-10,-3,0,5,9};
+    traUpDown(solu.sortedArrayToBST(nums));
+}
+
+/*
  * Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right,
  * level by level from leaf to root).
  */
