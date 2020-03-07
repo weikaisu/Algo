@@ -64,6 +64,44 @@ void traDownUp(TreeNode * root)
 
 //------------------------------------------------------------------------------------------------- Easy
 
+
+/*
+ * Given a binary tree, determine if it is height-balanced.
+ * For this problem, a height-balanced binary tree is defined as:
+ * a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+ */
+
+struct lc0110 { //E
+    int _checkTreeDepth(TreeNode *node, bool &bIsBalanced) {
+        if(!node) return 0;
+
+        int hLeft = _checkTreeDepth(node->left, bIsBalanced);
+        int hRight = _checkTreeDepth(node->right, bIsBalanced);
+        if(abs(hLeft-hRight)>1) bIsBalanced = false;
+        return max(hLeft, hRight)+1;
+    }
+
+    bool isBalanced(TreeNode* root) {
+        if(!root) return true;
+
+        bool bIsBalanced = true;
+        _checkTreeDepth(root, bIsBalanced);
+        return bIsBalanced;
+    }
+};
+
+void main_lc0110(void) {
+    lc0110 solu;
+    TreeNode *tree = new TreeNode(3);
+    tree->left = new TreeNode(9);
+    tree->right = new TreeNode(20);
+    tree->right->left = new TreeNode(15);
+    tree->right->right = new TreeNode(7);
+    traUpDown(tree);
+    cout << solu.isBalanced(tree) << endl;
+}
+
+
 /*
  * Convert Sorted Array to Binary Search Tree
  */
