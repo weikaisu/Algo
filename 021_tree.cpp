@@ -65,6 +65,37 @@ void traDownUp(TreeNode * root)
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
+ */
+struct lc0118 { //E
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> res(numRows);
+
+        if(!numRows) return res;
+
+        for(auto i=0; i<numRows; i++) {
+            for(auto j=0; j<=i; j++) {
+                if(j==0 || j==i)
+                    res[i].push_back(1);
+                else
+                    res[i].push_back(res[i-1][j-1]+res[i-1][j]);
+            }
+        }
+        return res;
+    }
+};
+
+void main_lc0118() {
+    lc0118 solu;
+    auto ans = solu.generate(5);
+    for(auto i : ans) {
+        for (auto j : i) cout << j << " ";
+        cout << endl;
+    }
+}
+
+
+/*
  * Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up
  * all the values along the path equals the given sum.
  */
