@@ -72,15 +72,8 @@ struct lc0112 {
     bool hasPathSum(TreeNode* root, int sum) {
         if(!root) return false;
         if(!root->left && !root->right && root->val==sum) return true;
-
-        bool left = false, right = false;
-        if(root->left)
-            left = hasPathSum(root->left, sum-root->val);
-        if(root->right)
-            right = hasPathSum(root->right, sum-root->val);
-
-        if(left || right) return true;
-        else return false;
+        return hasPathSum(root->left, sum-root->val) ||
+               hasPathSum(root->right, sum-root->val);
     }
 };
 
