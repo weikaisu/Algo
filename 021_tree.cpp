@@ -17,7 +17,7 @@ void dfsInOrder(TreeNode *root)
     if(root->right) dfsInOrder(root->right);
 }
 
-void traUpDwon(TreeNode *root)
+void traUpDown(TreeNode *root)
 {
     if(!root) return;
 
@@ -25,7 +25,7 @@ void traUpDwon(TreeNode *root)
     int q_size = 0;
 
     q.push_front(root);
-    while(q_size=q.size()) {
+    while((q_size=q.size())) {
         while(q_size--) {
             TreeNode *node = q.back(); q.pop_back();
             cout << node->val << ' ';
@@ -36,20 +36,151 @@ void traUpDwon(TreeNode *root)
     }
 }
 
+void traDownUp(TreeNode * root)
+{
+    if(!root) return;
+
+    deque<TreeNode*> s;
+    deque<TreeNode*> q;
+    int q_size = 0;
+
+    q.push_front(root);
+    while((q_size=q.size())) {
+        while(q_size--) {
+            TreeNode* node = q.back(); q.pop_back();
+            if(node->right) q.push_front(node->right);
+            if(node->left) q.push_front(node->left);
+            s.push_front(node);
+        }
+        s.push_front(nullptr);
+    }
+
+    while(s.size()) {
+        TreeNode* node = s.front(); s.pop_front();
+        if(!node) cout << endl;
+        else cout << node->val << ' ';
+    }
+}
+
 //------------------------------------------------------------------------------------------------- Easy
 
+/*
+ * Convert Sorted Array to Binary Search Tree
+ */
+struct lc0108 {
+    TreeNode* _sortedArrayToBST(vector<int>& nums, int l, int r) {
+        if(l>r) return nullptr;
+
+        int m = l + (r-l)/2;
+        TreeNode* node = new TreeNode(nums[m]);
+        node->left = _sortedArrayToBST(nums, l, m-1);
+        node->right = _sortedArrayToBST(nums, m+1, r);
+
+        return node;
+    }
+
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return _sortedArrayToBST(nums, 0, nums.size()-1);
+    }
+};
+
+void main_lc0108(void)
+{
+    lc0108 solu;
+    vector<int> nums {-10,-3,0,5,9};
+    traUpDown(solu.sortedArrayToBST(nums));
+}
+
+/*
+ * Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right,
+ * level by level from leaf to root).
+ */
+struct lc0107 {
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> res;
+        if(!root) return res;
+
+        deque<TreeNode*> s;
+        deque<TreeNode*> q;
+        int q_size = 0;
+
+        q.push_front(root);
+        while((q_size=q.size())) {
+            while(q_size--) {
+                TreeNode* node = q.back(); q.pop_back();
+                if(node->right) q.push_front(node->right);
+                if(node->left) q.push_front(node->left);
+                s.push_front(node);
+            }
+            s.push_front(nullptr);
+        }
+
+        s.pop_front();
+        vector<int> level;
+        while(s.size()) {
+            TreeNode* node = s.front(); s.pop_front();
+            if(!node) {
+                res.push_back(level);
+                level.clear();
+            }
+            else
+                level.push_back(node->val);
+        }
+        res.push_back(level);
+
+        return res;
+    }
+};
+
+void main_lc0107(void)
+{
+    lc0107 solu;
+    TreeNode *tree = new TreeNode(3);
+    tree->left = new TreeNode(9);
+    tree->right = new TreeNode(20);
+    tree->right->left = new TreeNode(15);
+    tree->right->right = new TreeNode(7);
+    //traDownUp(tree);
+    auto ans = solu.levelOrderBottom(tree);
+}
+
+/*
+ * Given a binary tree, find its maximum depth.
+ * The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+ */
+struct lc0104 { // E
+    int maxDepth(TreeNode* root) {
+        if(!root) return 0;
+        return 1+max(maxDepth(root->left), maxDepth(root->right));
+    }
+};
+
+void main_lc0104(void) {
+    lc0104 solu;
+    TreeNode* tree = new TreeNode(3);
+    tree->left = new TreeNode(9);
+    tree->right = new TreeNode(20);
+    tree->right->left = new TreeNode(15);
+    tree->right->right = new TreeNode(7);
+    traUpDown(tree);
+    auto ans = solu.maxDepth(tree);
+    cout << ans << endl;
+}
+
+/*
+ * Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+ */
+
 struct lc0101 {
-    bool isMirror(TreeNode* left, TreeNode* right) {
-        if((!left && right) || (left && !right))
-            return false;
-        if(!left && !right)
-            return true;
-        return isMirror(left->left, right->right) && isMirror(left->right, right->left) && left->val == right->val;
+    bool _isSymmetric(TreeNode* left, TreeNode* right) {
+        if(!left && !right) return true;
+        if(!left || !right) return false;
+        return _isSymmetric(left->left, right->right) && _isSymmetric(left->right, right->left) && left->val == right->val;
     }
 
     bool isSymmetric(TreeNode* root) {
         if(!root) return true;
-        return isMirror(root->left, root->right);
+        return _isSymmetric(root->left, root->right);
     }
 };
 
@@ -63,7 +194,7 @@ void main_lc0101(void)
     tree->left->right = new TreeNode(4);
     tree->right->left = new TreeNode(4);
     //tree->right->right = new TreeNode(3);
-    traUpDwon(tree);
+    traUpDown(tree);
     auto ans = solu.isSymmetric(tree);
     cout << ans << endl;
 }
