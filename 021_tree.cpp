@@ -65,6 +65,42 @@ void traDownUp(TreeNode * root)
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up
+ * all the values along the path equals the given sum.
+ */
+struct lc0112 {
+    bool hasPathSum(TreeNode* root, int sum) {
+        if(!root) return false;
+        if(!root->left && !root->right && root->val==sum) return true;
+
+        bool left = false, right = false;
+        if(root->left)
+            left = hasPathSum(root->left, sum-root->val);
+        if(root->right)
+            right = hasPathSum(root->right, sum-root->val);
+
+        if(left || right) return true;
+        else return false;
+    }
+};
+
+void main_lc0112() {
+    lc0112 solu;
+    TreeNode *tree = new TreeNode(5);
+    tree->left = new TreeNode(4);
+    tree->right = new TreeNode(8);
+    tree->left->left = new TreeNode(11);
+    tree->right->left = new TreeNode(13);
+    tree->right->right = new TreeNode(4);
+    tree->left->left->left = new TreeNode(7);
+    tree->left->left->right = new TreeNode(2);
+    tree->right->right->right = new TreeNode(1);
+    traUpDown(tree);
+    cout << endl << solu.hasPathSum(tree, 22) << endl;
+}
+
+
+/*
  * Given a binary tree, find its minimum depth.
  * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
  */
