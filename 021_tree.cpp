@@ -64,6 +64,32 @@ void traDownUp(TreeNode * root)
 
 //------------------------------------------------------------------------------------------------- Easy
 
+/*
+ * Given a binary tree, find its minimum depth.
+ * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+ */
+struct lc0111 {
+    int minDepth(TreeNode* root) {
+        if(!root) return 0;
+        if(!root->left && !root->right)  return 1;
+
+        int hLeft = root->left ? minDepth(root->left) : INT_MAX;
+        int hRight = root->right ? minDepth(root->right) : INT_MAX;
+        return min(hLeft, hRight)+1;
+    }
+};
+
+void main_lc0111() {
+    lc0111 solu;
+    TreeNode *tree = new TreeNode(1);
+    tree->left = new TreeNode(2);
+//    tree->left = new TreeNode(9);
+//    tree->right = new TreeNode(20);
+//    tree->right->left = new TreeNode(15);2
+//    tree->right->right = new TreeNode(7);
+    traUpDown(tree);
+    cout << solu.minDepth(tree) << endl;
+}
 
 /*
  * Given a binary tree, determine if it is height-balanced.
@@ -72,11 +98,11 @@ void traDownUp(TreeNode * root)
  */
 
 struct lc0110 { //E
-    int _checkTreeDepth(TreeNode *node, bool &bIsBalanced) {
+    int _getTreeDepth(TreeNode *node, bool &bIsBalanced) {
         if(!node) return 0;
 
-        int hLeft = _checkTreeDepth(node->left, bIsBalanced);
-        int hRight = _checkTreeDepth(node->right, bIsBalanced);
+        int hLeft = _getTreeDepth(node->left, bIsBalanced);
+        int hRight = _getTreeDepth(node->right, bIsBalanced);
         if(abs(hLeft-hRight)>1) bIsBalanced = false;
         return max(hLeft, hRight)+1;
     }
@@ -85,7 +111,7 @@ struct lc0110 { //E
         if(!root) return true;
 
         bool bIsBalanced = true;
-        _checkTreeDepth(root, bIsBalanced);
+        _getTreeDepth(root, bIsBalanced);
         return bIsBalanced;
     }
 };
