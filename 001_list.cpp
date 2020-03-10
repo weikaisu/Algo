@@ -67,6 +67,35 @@ void main_lc0011(void)
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Given a linked list, determine if it has a cycle in it. To represent a cycle in the given linked list,
+ * we use an integer pos which represents the position (0-indexed) in the linked list where tail connects to.
+ * If pos is -1, then there is no cycle in the linked list.
+ */
+struct lc0141 {
+    bool hasCycle(ListNode *head) {
+        ListNode *pfast = head;
+        ListNode *pslow = head;
+
+        while(pfast && pslow && pfast->next) {
+            pfast = pfast->next->next;
+            pslow = pslow->next;
+            if(pfast == pslow) return true;
+        }
+        return false;
+    }
+};
+
+void main_lc0141() {
+    lc0141 solu;
+    ListNode* lst = new ListNode(3);
+    addListNode(lst, 2);
+    addListNode(lst, 0);
+    addListNode(lst, -4);
+    cout << solu.hasCycle(lst) << endl;
+    printListNode(lst);
+}
+
+/*
  * Given a non-empty array of integers, every element appears twice except for one. Find that single one.
  */
 struct lc0136 {
@@ -115,7 +144,7 @@ void main_lc0122() {
  */
 struct lc0121 {
     int maxProfit(vector<int>& prices) {
-        int buy = INT_MIN * -1;
+        int buy = INT_MIN;
         int prf = 0;
         for(auto price:prices) {
             buy = max(buy, price * -1);
@@ -195,13 +224,13 @@ struct lc0027 { // E
     int n = nums.size();
         if (!n) return n;
 
-    int ptr_slow = 0, ptr_fast = 0;
-        while (ptr_fast < nums.size()) {
-            if (nums[ptr_fast] == val)
+    int pslow = 0, pfast = 0;
+        while (pfast < nums.size()) {
+            if (nums[pfast] == val)
                 n--;
             else
-                nums[ptr_slow++] = nums[ptr_fast];
-            ptr_fast++;
+                nums[pslow++] = nums[pfast];
+            pfast++;
         }
     return n;
     }
@@ -227,14 +256,14 @@ struct lc0026 { // E
     int n = nums.size();
         if (!n) return n;
 
-    int ptr_slow = 1, ptr_fast = 1;
+    int pslow = 1, pfast = 1;
     int pre_val = nums.front();
-        while (ptr_fast < nums.size()) {
-            if (pre_val == nums[ptr_fast])
+        while (pfast < nums.size()) {
+            if (pre_val == nums[pfast])
                 n--;
             else
-                nums[ptr_slow++] = nums[ptr_fast];
-            pre_val = nums[ptr_fast++];
+                nums[pslow++] = nums[pfast];
+            pre_val = nums[pfast++];
         }
     return n;
     }
