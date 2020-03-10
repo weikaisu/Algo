@@ -67,6 +67,25 @@ void main_lc0011(void)
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+ */
+struct lc0136 {
+    int singleNumber(vector<int>& nums) {
+        // any number xor with itself is zero
+        int res = 0;
+        for(auto num:nums)
+            res ^= num;
+        return res;
+    }
+};
+
+void main_lc0136() {
+    lc0136 solu;
+    vector<int> nums {4,1,2,1,2};
+    cout << solu.singleNumber(nums) << endl;
+}
+
+/*
  * Say you have an array for which the ith element is the price of a given stock on day i.
  * Design an algorithm to find the maximum profit. You may complete as many transactions as you like (i.e., buy one and
  * sell one share of the stock multiple times).
