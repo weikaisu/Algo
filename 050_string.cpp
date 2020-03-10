@@ -6,6 +6,33 @@ using namespace std;
 //------------------------------------------------------------------------------------------------- Easy
 
 /*
+ * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+ * Note: For the purpose of this problem, we define empty string as valid palindrome.
+ */
+struct lc0125 {
+    bool isPalindrome(string s) {
+        if(s.empty()) return true;
+
+        int l = 0, r = s.size()-1;
+        while(l<r) {
+            if(!isalnum(s[l])) l++;
+            else if(!isalnum(s[r])) r--;
+            else {
+                if(tolower(s[l++]) != tolower(s[r--])) return false;
+            }
+        }
+        return true;
+    }
+};
+
+void main_lc0125() {
+    lc0125 solu;
+    string s {"A man, a plan, a canal: Panama"};
+    cout << solu.isPalindrome(s);
+}
+
+
+/*
  * Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
  */
 #include <deque>
